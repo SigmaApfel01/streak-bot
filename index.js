@@ -1,8 +1,3 @@
-client.once("ready", () => {
-  console.log(`Bot ist online als ${client.user.tag}`);
-});
-
-
 const { Client, GatewayIntentBits } = require("discord.js");
 const fs = require("fs");
 
@@ -15,11 +10,15 @@ const client = new Client({
   ],
 });
 
+// 🔥 MUSS NACH client erstellt sein
+client.once("ready", () => {
+  console.log(`Bot ist online als ${client.user.tag}`);
+});
+
 // Daten speichern
 let data = {};
 const DATA_FILE = "./data.json";
 
-// Laden
 if (fs.existsSync(DATA_FILE)) {
   data = JSON.parse(fs.readFileSync(DATA_FILE));
 }
@@ -35,10 +34,7 @@ client.on("messageCreate", async (message) => {
   const today = new Date().toDateString();
 
   if (!data[userId]) {
-    data[userId] = {
-      streak: 1,
-      lastDay: today,
-    };
+    data[userId] = { streak: 1, lastDay: today };
   } else {
     if (data[userId].lastDay !== today) {
       data[userId].streak += 1;
@@ -53,7 +49,7 @@ client.on("messageCreate", async (message) => {
   try {
     await message.member.setNickname(`🔥${streak} ${message.author.username}`);
   } catch (err) {
-    console.log("Nickname Fehler:", err);
+    console.log(err);
   }
 });
 
