@@ -1,3 +1,8 @@
+client.once("ready", () => {
+  console.log(`Bot ist online als ${client.user.tag}`);
+});
+
+
 const { Client, GatewayIntentBits } = require("discord.js");
 const fs = require("fs");
 
