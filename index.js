@@ -52,4 +52,4 @@ client.on("messageCreate", async (message) => {
   }
 });
 
-client.login("DEIN_BOT_TOKEN_HIER");
+client.login(process.env.DISCORD_TOKEN);
